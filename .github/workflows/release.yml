@@ -52,6 +52,7 @@ jobs:
       with:
         context: ./frontend
         file: ./frontend/Dockerfile
+        platforms: linux/amd64,linux/arm64
         push: true
         tags: leishi1313/aurora-admin-frontend:${{ github.event.release.tag_name || steps.vars.outputs.tag_name }}
     -
@@ -62,6 +63,7 @@ jobs:
       with:
         context: ./frontend
         file: ./frontend/Dockerfile
+        platforms: linux/amd64,linux/arm64
         push: true
         tags: leishi1313/aurora-admin-frontend:latest
     -
@@ -72,12 +74,13 @@ jobs:
       with:
         context: ./frontend
         file: ./frontend/Dockerfile
+        platforms: linux/amd64,linux/arm64
         push: true
         tags: leishi1313/aurora-admin-frontend:${{ steps.vars.outputs.branch }}-latest
     -
       name: Frontend digest
       run: echo ${{ steps.docker_build_frontend_tagged_version.outputs.digest }}
-      
+
   build-and-push-backend:
     runs-on: ubuntu-latest
     steps:
@@ -110,6 +113,7 @@ jobs:
       with:
         context: ./backend
         file: ./backend/Dockerfile
+        platforms: linux/amd64,linux/arm64
         push: true
         tags: leishi1313/aurora-admin-backend:${{ github.event.release.tag_name || steps.vars.outputs.tag_name }}
         build-args: |
@@ -122,6 +126,7 @@ jobs:
       with:
         context: ./backend
         file: ./backend/Dockerfile
+        platforms: linux/amd64,linux/arm64
         push: true
         tags: leishi1313/aurora-admin-backend:latest
         build-args: |
@@ -134,6 +139,7 @@ jobs:
       with:
         context: ./backend
         file: ./backend/Dockerfile
+        platforms: linux/amd64,linux/arm64
         push: true
         tags: leishi1313/aurora-admin-backend:${{ steps.vars.outputs.branch }}-latest
         build-args: |
@@ -141,3 +147,9 @@ jobs:
     -
       name: Backend digest
       run: echo ${{ steps.docker_build_backend_tagged_version.outputs.digest }}
+
+    - name: Send message to Telegram
+      uses: Lukasss93/telegram-action@v2
+      env:
+        TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+        TELEGRAM_CHAT: ${{ secrets.TELEGRAM_CHAT }}
