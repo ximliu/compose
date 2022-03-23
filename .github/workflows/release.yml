@@ -53,7 +53,7 @@ jobs:
         context: ./frontend
         file: ./frontend/Dockerfile
         push: true
-        tags: leishi1313/aurora-admin-frontend:${{ github.event.release.tag_name || steps.vars.outputs.tag_name }}
+        tags: ximliu/aurora-admin-frontend:${{ github.event.release.tag_name || steps.vars.outputs.tag_name }}
     -
       if: github.event_name == 'release'
       name: Build and Publish Frontend Latest
@@ -63,7 +63,7 @@ jobs:
         context: ./frontend
         file: ./frontend/Dockerfile
         push: true
-        tags: leishi1313/aurora-admin-frontend:latest
+        tags: ximliu/aurora-admin-frontend:latest
     -
       if: github.event_name != 'release'
       name: Build and Publish Frontend Dev Latest
@@ -73,7 +73,7 @@ jobs:
         context: ./frontend
         file: ./frontend/Dockerfile
         push: true
-        tags: leishi1313/aurora-admin-frontend:${{ steps.vars.outputs.branch }}-latest
+        tags: ximliu/aurora-admin-frontend:${{ steps.vars.outputs.branch }}-latest
     -
       name: Frontend digest
       run: echo ${{ steps.docker_build_frontend_tagged_version.outputs.digest }}
@@ -111,7 +111,7 @@ jobs:
         context: ./backend
         file: ./backend/Dockerfile
         push: true
-        tags: leishi1313/aurora-admin-backend:${{ github.event.release.tag_name || steps.vars.outputs.tag_name }}
+        tags: ximliu/aurora-admin-backend:${{ github.event.release.tag_name || steps.vars.outputs.tag_name }}
         build-args: |
           BACKEND_APP_VERSION=${{ github.event.release.tag_name || steps.vars.outputs.tag_name }}
     -
@@ -123,7 +123,7 @@ jobs:
         context: ./backend
         file: ./backend/Dockerfile
         push: true
-        tags: leishi1313/aurora-admin-backend:latest
+        tags: ximliu/aurora-admin-backend:latest
         build-args: |
           BACKEND_APP_VERSION=${{ github.event.release.tag_name || steps.vars.outputs.tag_name }}
     -
@@ -135,7 +135,7 @@ jobs:
         context: ./backend
         file: ./backend/Dockerfile
         push: true
-        tags: leishi1313/aurora-admin-backend:${{ steps.vars.outputs.branch }}-latest
+        tags: ximliu/aurora-admin-backend:${{ steps.vars.outputs.branch }}-latest
         build-args: |
           BACKEND_APP_VERSION=${{ github.event.release.tag_name || steps.vars.outputs.tag_name }}
     -
